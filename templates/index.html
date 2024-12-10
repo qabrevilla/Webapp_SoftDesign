@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #EFEFEF;
+        }
+        h1 {
+            text-align: center;
+        }
+        .frame {
+            width: 262px;
+            height: 502px;
+            border: 1px solid #F7F7FF;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .summary {
+            padding-bottom: 20px;
+            border: 1px solid #000;
+            margin-top: 20px;
+            font-weight: bold;
+            background:#FFFFFF;
+        }
+        button {
+            margin: auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #rectangle{
+            overflow: hidden;
+            width: 100%;
+            /* height:650px; */
+            background:#FFFFFF;
+        }
+        #dashboard{
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background-color: #3D5A80;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <div id="dashboard">DASHBOARD</div>
+    </h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="image">Upload Visual Input (Image):</label>
+        <input type="file" name="image" id="image" accept="image/*" required><br><br>
+
+        <label for="sound">Upload Audio Input (Sound):</label>
+        <input type="file" name="sound" id="sound" accept="audio/*" required><br><br>
+
+        <button type="submit">Inspect</button>
+    </form>
+
+    {% if visual_results %}
+    <div class="summary">
+        <div style="width: 262px; display: table-cell;">
+            <h3>Visual Defects Detected</h3>
+            <p>Crack: {{ visual_results['Crack'] }}</p>
+            <p>Scratch: {{ visual_results['Scratch'] }}</p>
+            <p>Stain: {{ visual_results['Stain'] }}</p>
+        </div>
+
+        <div style="padding-left: 180px; display: table-cell;">
+            <h3>Sound Defect</h3>
+            <p>{{ "None detected" if sound_results['Sound Quality'] == 0 else "Defect detected" }}</p>
+        </div>
+
+        <div class="summary">
+            <h3>Inspection Summary</h3>
+            <p>Crack: {{ inspection_summary['Crack'] }}</p>
+            <p>Scratch: {{ inspection_summary['Scratch'] }}</p>
+            <p>Stain: {{ inspection_summary['Stain'] }}</p>
+            <p>Sound Defect: {{ inspection_summary['Sound Defect'] }}</p>
+        </div>
+
+        <div class="summary">
+            <h4>Running Defect Counters:</h4>
+            <p>Crack Count: {{ defect_counters['Crack'] }}</p>
+            <p>Scratch Count: {{ defect_counters['Scratch'] }}</p>
+            <p>Stain Count: {{ defect_counters['Stain'] }}</p>
+            <p>Sound Defect Count: {{ defect_counters['Sound Defect'] }}</p>
+        </div>
+    </div>
+
+    {% endif %}
+</body>
+</html>
