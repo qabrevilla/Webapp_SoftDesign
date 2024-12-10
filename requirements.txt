@@ -6,3 +6,6 @@ pillow
 librosa
 scikit-image
 Werkzeug
+librosa
+matplotlib
+
